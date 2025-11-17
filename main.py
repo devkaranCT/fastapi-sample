@@ -8,3 +8,7 @@ async def home():
 @app.get("/greet/{name}")
 async def greet(name: str):
     return {"Greeting": f"Hello, {name}!"}
+
+@app.get("/invitation-sent-to/{name}")
+async def greet(name: str):
+    return {"Greeting": f"we successfully sent invitation to {name}!"}
