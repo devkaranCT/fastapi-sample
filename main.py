@@ -1,14 +1,13 @@
 from fastapi import FastAPI
+import models
+from database import engine
+from routers import auth, todos, admin, users
+
 app = FastAPI()
 
-@app.get("/")
-async def home():
-    return {"Hello": "World"}
+models.Base.metadata.create_all(bind=engine)
 
-@app.get("/greet/{name}")
-async def greet(name: str):
-    return {"Greeting": f"Hello, {name}!"}
-
-@app.get("/invitation-sent-to/{name}")
-async def greet(name: str):
-    return {"Greeting": f"we successfully sent invitation to {name}!"}
+app.include_router(auth.router)
+app.include_router(todos.router)
+app.include_router(admin.router)
+app.include_router(users.router)
